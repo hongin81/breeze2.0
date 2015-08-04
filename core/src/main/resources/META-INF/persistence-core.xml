@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+             
+    <persistence-unit name="blPU" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>jdbc/web</non-jta-data-source>
+        <!-- 
+        <class>kr.brzc.cms.page.domain.CustomPageTemplateImpl</class>
+         -->
+         
+         <!--  Page Template 관련 Entity 추가  -->
+
+         <class>kr.brzc.common.enumeration.domain.CustomDataDrivenEnumerationImpl</class>
+         <class>kr.brzc.cms.page.domain.CustomPageTemplateImpl</class>
+         <class>kr.brzc.cms.field.domain.CustomFieldDefinitionImpl</class>
+         <class>kr.brzc.cms.field.domain.CustomFieldGroupImpl</class>
+        <exclude-unlisted-classes/>
+         
+         <!-- # Single Table inheritance Settings --> 
+         <properties>
+         	<!-- for Single Table inheritance Entity -->
+         	<property name="broadleaf.ejb.entities.override_single_table" value="
+         	org.broadleafcommerce.cms.field.domain.FieldGroupImpl
+         	org.broadleafcommerce.cms.field.domain.FieldDefinitionImpl
+         	org.broadleafcommerce.cms.page.domain.PageTemplateImpl
+         	org.broadleafcommerce.common.enumeration.domain.DataDrivenEnumerationImpl
+         	"/>
+         	
+         	<!-- FieldGroupImpl -->
+            <property name="broadleaf.ejb.FieldGroupImpl.discriminator.name" value="BRZC_CUSTOM_CLASS"/>
+            <property name="broadleaf.ejb.FieldGroupImpl.discriminator.type" value="STRING"/>
+            <property name="broadleaf.ejb.FieldGroupImpl.discriminator.length" value="50"/>
+            
+            <!-- FieldDefinitionImpl -->
+            <property name="broadleaf.ejb.FieldDefinitionImpl.discriminator.name" value="BRZC_CUSTOM_CLASS"/>
+            <property name="broadleaf.ejb.FieldDefinitionImpl.discriminator.type" value="STRING"/>
+            <property name="broadleaf.ejb.FieldDefinitionImpl.discriminator.length" value="50"/>
+            
+            <!-- PageTemplateImpl -->
+            <property name="broadleaf.ejb.PageTemplateImpl.discriminator.name" value="BRZC_CUSTOM_CLASS"/>
+            <property name="broadleaf.ejb.PageTemplateImpl.discriminator.type" value="STRING"/>
+            <property name="broadleaf.ejb.PageTemplateImpl.discriminator.length" value="50"/>
+            
+            <!-- PageTemplateImpl -->
+            <property name="broadleaf.ejb.DataDrivenEnumerationImpl.discriminator.name" value="BRZC_CUSTOM_CLASS"/>
+            <property name="broadleaf.ejb.DataDrivenEnumerationImpl.discriminator.type" value="STRING"/>
+            <property name="broadleaf.ejb.DataDrivenEnumerationImpl.discriminator.length" value="50"/>
+         </properties>
+         
+         
+         <!--  -->
+        
+    </persistence-unit>
+    
+    <persistence-unit name="blSecurePU" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>jdbc/webSecure</non-jta-data-source>
+        <exclude-unlisted-classes/>
+    </persistence-unit>
+
+    <persistence-unit name="blCMSStorage" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>jdbc/cmsStorage</non-jta-data-source>
+        <exclude-unlisted-classes/>
+    </persistence-unit>
+</persistence>
